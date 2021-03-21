@@ -1,0 +1,167 @@
+{
+  "type": "object",
+  "title": "Product",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "displayable_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_price": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "final_price": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "tax_rate": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "name_zh": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "name_en": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string"
+    },
+    "weight_g": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "weight_oz": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "volume_ml": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "volume_oz": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "description_md": {
+      "type": "string"
+    },
+    "barcode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "leftover": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["D", "E", "PU", "PR"],
+      "enumNames": ["隐藏", "正常", "等待修改", "等待发布"]
+    },
+    "pricing_unit": {
+      "type": "string",
+      "enum": ["unit", "box", "pack"],
+      "enumNames": ["单价", "箱", "袋"]
+    },
+    "shipping_available": {
+      "type": "boolean"
+    },
+    "sameday_delivery_available": {
+      "type": "boolean"
+    },
+    "nextday_delivery_available": {
+      "type": "boolean"
+    },
+    "pickup_available": {
+      "type": "boolean"
+    },
+    "deliverynow_available": {
+      "type": "boolean"
+    },
+    "replacing_id": {
+      "type": "integer"
+    },
+    "parent_id": {
+      "type": "integer"
+    },
+    "brand_id": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false,
+  "relationalProperties": {
+    "replaced_by": {
+      "type": "OneToOneRel",
+      "to": "Product"
+    },
+    "children": {
+      "type": "ManyToOneRel",
+      "to": "Product"
+    },
+    "categories": {
+      "type": "ManyToManyRel",
+      "to": "Category"
+    },
+    "google_search_result": {
+      "type": "ManyToOneRel",
+      "to": "GoogleSearchResult"
+    },
+    "images": {
+      "type": "ManyToOneRel",
+      "to": "ProductImage"
+    },
+    "replacing": {
+      "type": "UniqueForeignKey",
+      "to": "Product"
+    },
+    "parent": {
+      "type": "ForeignKey",
+      "to": "Product"
+    },
+    "brand": {
+      "type": "ForeignKey",
+      "to": "Brand"
+    }
+  },
+  "required": [
+    "shipping_available",
+    "date_modified",
+    "weight_oz",
+    "pickup_available",
+    "weight_g",
+    "status",
+    "displayable_status",
+    "volume_ml",
+    "leftover",
+    "pricing_unit",
+    "barcode",
+    "nextday_delivery_available",
+    "deliverynow_available",
+    "sameday_delivery_available",
+    "tax_rate",
+    "volume_oz",
+    "base_price",
+    "id",
+    "final_price",
+    "date_created"
+  ]
+}

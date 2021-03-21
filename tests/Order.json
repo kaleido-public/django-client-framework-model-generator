@@ -1,0 +1,180 @@
+{
+  "type": "object",
+  "title": "Order",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "displayable_customer_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayable_shop_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayable_delivery_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayable_datetime_placed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "product_name_list": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "delivery_method": {
+      "type": "string",
+      "enum": ["now", "sameday", "nextday", "shipping", "pickup"],
+      "enumNames": [
+        "立即配送",
+        "当天配送",
+        "明天配送",
+        "包邮(1-3天)",
+        "到店自取"
+      ]
+    },
+    "delivery_address": {
+      "type": "string",
+      "maxLength": 225
+    },
+    "delivery_distance": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+    },
+    "delivery_unit_number": {
+      "type": "string",
+      "maxLength": 225
+    },
+    "delivery_unit_code": {
+      "type": "string",
+      "maxLength": 225
+    },
+    "delivery_requires_signature": {
+      "type": "boolean"
+    },
+    "delivery_pickup_location": {
+      "type": "string",
+      "enum": ["loc1"],
+      "enumNames": [
+        "大百汇超市 Campus Court Plaza, 140 University Ave W, Waterloo, ON N2L 6J3"
+      ]
+    },
+    "delivery_charge": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "delivery_charge_rebated": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "delivery_contact": {
+      "type": "string",
+      "maxLength": 15
+    },
+    "customer_notes": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "product_charge": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "product_charge_rebated": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "final_charge": {
+      "type": "string",
+      "pattern": "^\\-?[0-9]*(\\.[0-9]{1,2})?$"
+    },
+    "customer_status": {
+      "type": "string",
+      "enum": ["unpaid", "paid", "received"],
+      "enumNames": ["未支付", "已支付", "已收货"]
+    },
+    "shop_status": {
+      "type": "string",
+      "enum": [
+        "unconfirmed",
+        "confirmed",
+        "dispatched",
+        "delivered",
+        "rejected"
+      ],
+      "enumNames": ["未确认", "已确认", "已出货", "已送达", "已取消"]
+    },
+    "delivery_service_status": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "datetime_placed": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_notified_shop": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "assigned_delivery_service_id": {
+      "type": "integer"
+    },
+    "participated_delivery_services": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "relationalProperties": {
+    "order_products": {
+      "type": "ManyToOneRel",
+      "to": "OrderProduct"
+    },
+    "user": {
+      "type": "ForeignKey",
+      "to": "User"
+    },
+    "assigned_delivery_service": {
+      "type": "ForeignKey",
+      "to": "DeliveryService"
+    }
+  },
+  "required": [
+    "product_charge",
+    "datetime_placed",
+    "displayable_delivery_method",
+    "participated_delivery_services",
+    "product_charge_rebated",
+    "user_id",
+    "displayable_shop_status",
+    "products",
+    "shop_status",
+    "displayable_datetime_placed",
+    "final_charge",
+    "displayable_customer_status",
+    "customer_status",
+    "delivery_distance",
+    "delivery_charge_rebated",
+    "delivery_charge",
+    "product_name_list",
+    "delivery_method",
+    "id"
+  ]
+}
