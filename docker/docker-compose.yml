@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  gen-kotlin-models:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: gen-kotlin-models
+
