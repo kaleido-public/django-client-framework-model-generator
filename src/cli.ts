@@ -12,6 +12,7 @@ import {
     relationAttributeProducer,
 } from "./KotlinXTargetLanguage"
 import { SwiftXTargetLanguage } from "./SwiftXTargetLanguage"
+import { TypeScriptXTargetLanguage } from "./TypeScriptXLanguage"
 
 async function main(program: string, args: string[]): Promise<void> {
     // Exactly one command line argument allowed, the name of the JSON Schema file.
@@ -59,6 +60,14 @@ async function main(program: string, args: string[]): Promise<void> {
                 rendererOptions: {
                     "just-types": "true",
                     density: "normal",
+                },
+            }
+            break
+        case "typescript":
+            lang = new TypeScriptXTargetLanguage()
+            opts = {
+                rendererOptions: {
+                    "just-types": "true",
                 },
             }
             break
