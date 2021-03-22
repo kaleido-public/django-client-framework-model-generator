@@ -13,7 +13,6 @@ import {
 } from "quicktype/dist/quicktype-core"
 
 import {
-    RelationManagerSet,
     relationTypeAttributeKind,
 } from "./RelationTypeAttributeKind"
 
@@ -51,7 +50,7 @@ export class SwiftXRenderer extends SwiftRenderer {
         )
     }
 
-    protected emitMark(line: Sourcelike, horizontalLine: boolean = false) {}
+    protected emitMark(line: Sourcelike, horizontalLine: boolean = false) { }
 
     protected getProtocolString(_t: Type, isClass: boolean): Sourcelike {
         return ": Model"
