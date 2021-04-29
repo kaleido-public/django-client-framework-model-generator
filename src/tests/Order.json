@@ -31,13 +31,7 @@
     "delivery_method": {
       "type": "string",
       "enum": ["now", "sameday", "nextday", "shipping", "pickup"],
-      "enumNames": [
-        "立即配送",
-        "当天配送",
-        "明天配送",
-        "包邮(1-3天)",
-        "到店自取"
-      ]
+      "enumNames": ["立即配送", "当天配送", "明天配送", "包邮(1-3天)", "到店自取"]
     },
     "delivery_address": {
       "type": "string",
@@ -101,13 +95,7 @@
     },
     "shop_status": {
       "type": "string",
-      "enum": [
-        "unconfirmed",
-        "confirmed",
-        "dispatched",
-        "delivered",
-        "rejected"
-      ],
+      "enum": ["unconfirmed", "confirmed", "dispatched", "delivered", "rejected"],
       "enumNames": ["未确认", "已确认", "已出货", "已送达", "已取消"]
     },
     "delivery_service_status": {

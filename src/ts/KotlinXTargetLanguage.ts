@@ -84,9 +84,7 @@ export function relationAttributeProducer(
     } else {
         // If it's not a object, we throw an exception to let the user know
         // what's what.
-        throw new Error(
-            `relationalProperties is not a object in ${canonicalRef}`
-        )
+        throw new Error(`relationalProperties is not a object in ${canonicalRef}`)
     }
 
     // Lastly, we generate the type attribute and return it, which requires a bit of
@@ -96,9 +94,7 @@ export function relationAttributeProducer(
     // these attributes go on the actual types specified in the schema.  We won't go
     // into the other possibilities here.
     return {
-        forType: relationTypeAttributeKind.makeAttributes(
-            relational_properties
-        ),
+        forType: relationTypeAttributeKind.makeAttributes(relational_properties),
     }
 }
 
@@ -188,9 +184,8 @@ class KotlinXRenderer extends KotlinRenderer {
         // All the type's attributes
         const attributes = c.getAttributes()
         // The game object attribute, or "undefined"
-        const relation_managers = relationTypeAttributeKind.tryGetInAttributes(
-            attributes
-        )
+        const relation_managers =
+            relationTypeAttributeKind.tryGetInAttributes(attributes)
         for (const key in relation_managers) {
             const type = relation_managers[key].type
             const to = relation_managers[key].to
@@ -202,11 +197,7 @@ class KotlinXRenderer extends KotlinRenderer {
             }
             this.emitLine("val ", key, `: ${manager}<${to}, `, className, `>`)
             this.indent(() => {
-                this.emitLine(
-                    "get() { ",
-                    `return ${manager}(this, "${key}")`,
-                    " }"
-                )
+                this.emitLine("get() { ", `return ${manager}(this, "${key}")`, " }")
             })
         }
     }

@@ -73,10 +73,7 @@ export class SwiftXRenderer extends SwiftRenderer {
             [structOrClass, " ", className, this.getProtocolString(c, isClass)],
             () => {
                 this.forEachClassProperty(c, "none", (name, jsonName, p) => {
-                    const description = this.descriptionForClassProperty(
-                        c,
-                        jsonName
-                    )
+                    const description = this.descriptionForClassProperty(c, jsonName)
                     const propertyLines = this.propertyLinesDefinitionX(
                         jsonName,
                         name,
@@ -100,22 +97,15 @@ export class SwiftXRenderer extends SwiftRenderer {
         if (jsonName == "id") {
             return [this.accessLevel, "let id: UInt"]
         }
-        return [
-            this.accessLevel,
-            "var ",
-            name,
-            ": ",
-            this.swiftPropertyType(parameter),
-        ]
+        return [this.accessLevel, "var ", name, ": ", this.swiftPropertyType(parameter)]
     }
 
     protected emitRelationManagers(c: ClassType, className: Name): void {
         // All the type's attributes
         const attributes = c.getAttributes()
         // The game object attribute, or "undefined"
-        const relation_managers = relationTypeAttributeKind.tryGetInAttributes(
-            attributes
-        )
+        const relation_managers =
+            relationTypeAttributeKind.tryGetInAttributes(attributes)
         for (const key in relation_managers) {
             const type = relation_managers[key].type
             const to = relation_managers[key].to

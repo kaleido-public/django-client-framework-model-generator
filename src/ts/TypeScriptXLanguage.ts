@@ -36,22 +36,17 @@ export class TypeScriptXRenderer extends TypeScriptRenderer {
     }
 
     protected emitClassBlock(c: ClassType, className: Name): void {
-        this.emitBlock(
-            ["export interface ", className, " extends Model "],
-            "",
-            () => {
-                this.emitClassBlockBody(c)
-            }
-        )
+        this.emitBlock(["export interface ", className, " extends Model "], "", () => {
+            this.emitClassBlockBody(c)
+        })
     }
 
     protected emitRelationManagers(c: ClassType, className: Name): void {
         // All the type's attributes
         const attributes = c.getAttributes()
         // The game object attribute, or "undefined"
-        const relation_managers = relationTypeAttributeKind.tryGetInAttributes(
-            attributes
-        )
+        const relation_managers =
+            relationTypeAttributeKind.tryGetInAttributes(attributes)
         for (const key in relation_managers) {
             const type = relation_managers[key].type
             const to = relation_managers[key].to
