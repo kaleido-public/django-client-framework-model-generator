@@ -10,17 +10,10 @@ import {
     nullableFromUnion,
     UnionType,
     ClassProperty,
-    JSONSchema,
-    Ref,
-    JSONSchemaType,
-    JSONSchemaAttributes,
     EnumType,
 } from "quicktype/dist/quicktype-core"
 
-import {
-    RelationManagerSet,
-    relationTypeAttributeKind,
-} from "./RelationTypeAttributeKind"
+import { relationTypeAttributeKind } from "./RelationTypeAttributeKind"
 
 export class KotlinXTargetLanguage extends KotlinTargetLanguage {
     constructor() {
@@ -42,63 +35,6 @@ export class KotlinXTargetLanguage extends KotlinTargetLanguage {
             renderContext,
             getOptionValues(kotlinOptions, untypedOptionValues)
         )
-    }
-}
-
-// "schema" is the JSON object in the schema for the type it's being applied to.
-// In the case of our "Player" type, that would be the object at "definitions.Player"
-// in the schema.
-
-// "canonicalRef" is the location in the schema of that type.  We only use it in an
-// error message here.
-
-// "types" is a set of JSON type specifiers, such as "object", "string", or
-// "boolean".  The reason it's a set and not just a single one is that one type
-// within the schema can specify values of more than one JSON type.  For example,
-// { "type": ["string", "boolean"] } is a JSON Schema for "all strings and all
-// booleans".
-export function relationAttributeProducer(
-    schema: JSONSchema,
-    canonicalRef: Ref,
-    types: Set<JSONSchemaType>
-): JSONSchemaAttributes | undefined {
-    // Booleans are valid JSON Schemas, too: "true" means "all values allowed" and
-    // "false" means "no values allowed".  In fact, the "false" for
-    // additionalProperties in our schema is a case of the latter.  For that reason,
-    // our producer could be called on a boolean, which we have to check for first.
-    if (typeof schema !== "object") return undefined
-
-    // Next we check whether the type we're supposed to produce attributes for even
-    // allows objects as values.  If it doesn't, it's not our business, so we
-    // return "undefined".
-    if (!types.has("object")) return undefined
-
-    // Now we can finally check whether our type is supposed to be a game object.
-    let relational_properties: RelationManagerSet
-    if (schema.relationalProperties === undefined) {
-        // If it doesn't have the "relationalProperties" property, it isn't.
-        relational_properties = {}
-    } else if (typeof schema.relationalProperties === "object") {
-        // If it does have it, we make sure it's a object and use its value.
-        relational_properties = schema.relationalProperties
-    } else {
-        // If it's not a object, we throw an exception to let the user know
-        // what's what.
-        throw new Error(
-            `relationalProperties is not a object in ${canonicalRef}`
-        )
-    }
-
-    // Lastly, we generate the type attribute and return it, which requires a bit of
-    // ceremony.  A producer is allowed to return more than one type attribute, so to
-    // know which attribute corresponds to which attribute kind, it needs to be wrapped
-    // in a "Map", which is what "makeAttributes" does.  The "forType" specifies that
-    // these attributes go on the actual types specified in the schema.  We won't go
-    // into the other possibilities here.
-    return {
-        forType: relationTypeAttributeKind.makeAttributes(
-            relational_properties
-        ),
     }
 }
 
@@ -188,9 +124,8 @@ class KotlinXRenderer extends KotlinRenderer {
         // All the type's attributes
         const attributes = c.getAttributes()
         // The game object attribute, or "undefined"
-        const relation_managers = relationTypeAttributeKind.tryGetInAttributes(
-            attributes
-        )
+        const relation_managers =
+            relationTypeAttributeKind.tryGetInAttributes(attributes) ?? {}
         for (const key in relation_managers) {
             const type = relation_managers[key].type
             const to = relation_managers[key].to

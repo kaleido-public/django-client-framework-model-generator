@@ -5,10 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && prettier -w .",
-    "cli": "node .build/cli.js"
-  },
-  "bin": {
-    "dcf_clientmodels": ".build/cli.js"
+    "cli": "node dist/cli.js"
   },
   "dependencies": {
     "quicktype": "https://github.com/cozybearca/quicktype.git"

@@ -7,10 +7,8 @@ import {
     TargetLanguage,
     Options,
 } from "quicktype/dist/quicktype-core"
-import {
-    KotlinXTargetLanguage,
-    relationAttributeProducer,
-} from "./KotlinXTargetLanguage"
+import { KotlinXTargetLanguage } from "./KotlinXTargetLanguage"
+import { relationAttributeProducer } from "./RelationTypeAttributeKind"
 import { SwiftXTargetLanguage } from "./SwiftXTargetLanguage"
 import { TypeScriptXTargetLanguage } from "./TypeScriptXLanguage"
 

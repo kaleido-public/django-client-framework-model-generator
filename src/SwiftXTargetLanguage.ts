@@ -113,9 +113,8 @@ export class SwiftXRenderer extends SwiftRenderer {
         // All the type's attributes
         const attributes = c.getAttributes()
         // The game object attribute, or "undefined"
-        const relation_managers = relationTypeAttributeKind.tryGetInAttributes(
-            attributes
-        )
+        const relation_managers =
+            relationTypeAttributeKind.tryGetInAttributes(attributes)
         for (const key in relation_managers) {
             const type = relation_managers[key].type
             const to = relation_managers[key].to

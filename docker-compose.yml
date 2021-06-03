@@ -1,11 +1,5 @@
-version: "3.7"
-services:
-  cli:
-    build: .
-    image: ylilarry/dcf_clientmodels
-
-  sdk:
-    build: .
-    volumes:
-      - ./:/_workdir
-    entrypoint: sleep inf
+# version: "3.7"
+# services:
+#   cli:
+#     build: .
+#     image: ylilarry/dcf_clientmodels
