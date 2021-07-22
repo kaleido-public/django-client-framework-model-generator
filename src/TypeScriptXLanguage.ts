@@ -8,7 +8,9 @@ import {
     ClassType,
     Name,
     modifySource,
+    EnumType,
 } from "quicktype/dist/quicktype-core"
+import { utf16StringEscape } from "quicktype/dist/quicktype-core/support/Strings"
 
 import { relationTypeAttributeKind } from "./RelationTypeAttributeKind"
 
@@ -105,6 +107,15 @@ export class TypeScriptXRenderer extends TypeScriptRenderer {
                 `> { return new ${manager}(s.${to}, this, "${key}") }`
             )
         }
+    }
+
+    protected emitEnum(e: EnumType, enumName: Name): void {
+        this.emitDescription(this.descriptionForType(e))
+        this.emitBlock(["enum ", enumName, " "], "", () => {
+            this.forEachEnumCase(e, "none", (name, jsonName) => {
+                this.emitLine(name, ` = "${utf16StringEscape(jsonName)}",`)
+            })
+        })
     }
 
     protected emitModuleImports() {
