@@ -7,6 +7,9 @@
     "build": "tsc && prettier -w .",
     "cli": "node dist/cli.js"
   },
+  "bin": {
+    "dcf_modelgen": "dist/cli.js"
+  },
   "dependencies": {
     "quicktype": "https://github.com/cozybearca/quicktype.git"
   },
